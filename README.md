@@ -5,14 +5,16 @@ The purpose of this library is to allow users to convert image files in fully cu
 
 # Convert Image to String Library
 
-** Function name = itsl()
+** Function name = itsl() (Image To String)
 
 ```python
-image = imread("location")
-image_string = image.itsl(val_ord = 0, val_i = “, val_type = ’s‘, val_iol = False, val_sol = 0, val_pvc = 1   
-                         val_pvc_type = None, gsi = “,”, gsd = len(image[x,y]), mgs_input = None, gs_type = ’s‘
-                         gsiol = False, gs_sol = 0, gs_pvc = 1, gs_pvc_type = None, lsi = “/n”, ls_type = ’s‘
-                         ls_iol = False, ls_sol = 0, ls_pvc = 1, ls_pvc_type = None)
+
+def its(image, val_ord = 0, val_i = " ", val_type = "s", val_iol = False, 
+         val_sol = 0, val_pvc = 1, val_pvc_type = None, gsi = ",", 
+         gsd = len(image[x,y]), mgs_input = None, gs_type = "s",
+         gsiol = False, gs_sol = 0, gs_pvc = 1, gs_pvc_type = None, 
+         lsi = "/n", ls_type = "s", ls_iol = False, ls_sol = 0, ls_pvc = 1, 
+         ls_pvc_type = None):
 ```
 
 ## Features:
