@@ -5,7 +5,7 @@ The purpose of this Module is to allow users to convert image files in fully cus
 
 # Convert Image to String Module
 
-** Function name = itsl() (Image To String)
+** Function name = its() (Image To String)
 
 ```python
 
