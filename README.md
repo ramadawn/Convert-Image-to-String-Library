@@ -1,7 +1,7 @@
 # Convert-Image-to-String-Module
 by Douglas Oak
 
-The purpose of this Module is to allow users to convert image files in fully custom string outputs. 
+The purpose of this Module is to allow users to convert image files to fully custom string outputs. 
 
 # Convert Image to String Module
 
