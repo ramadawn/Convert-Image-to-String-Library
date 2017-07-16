@@ -9,7 +9,7 @@ The purpose of this Module is to allow users to convert image files to fully cus
 
 ```python
 
-def its(image, val_ord = 0, val_i = " ", val_type = "s", val_iol = False, 
+def its(image, val_ord = "0", val_ord_xy = False, val_i = " ", val_type = "s", val_iol = False, 
          val_sol = 0, val_pvc = 1, val_pvc_type = None, gsi = ", ", 
          gsd = len(image[x,y]), mgs_input = None, gs_type = "s",
          gsiol = False, gs_sol = 0, gs_pvc = 1, gs_pvc_type = None, 
@@ -31,13 +31,24 @@ The purpose of this library is to allow users to convert image files in fully cu
 Indicators seperating each individual value. 
 Example: For RGB, red, green and blue would each be seperated by value space indicators.
 
-**1) val_ord (data ordering) (val_ord = 0) :**
+**1) val_ord (data ordering) (val_ord = "0") :**
 
- (default = starts at position zero increases sequentially)  
+(default = starts at position zero increases sequentially)  
+Takes in a position value string "xyz" and compares it to the pixel values array [R,G,B] and outputs pixel list with values equal to the position value of the string. For Example if an RGB array was passed with values 201. Then the new RGB array would be B (at position 2) R (at position 0) and G (at position 1) for a final array of BRG.
 
-Allows user to specify the order in which values at an x,y position are encoded first.
+The new list gets integrated into the string. So an RGB picture reordered to BGR would spit out a string with the pixels values of BRG,
 
 Example an RGB image could be encoded as GBR or BGR etc.
+
+activating this parameter will reduce performance speed by around 25 percent. for a 3 value array.
+
+**this function is not limited to any particular number of values and can handle pixels with any amount of values**
+
+value positions start from zero. So a 5 value pixel will be reordered from position 0-4.
+
+**1) val_ord_xy (flips x and y postions) (val_ord_xy = False) :**
+
+If this parameter is marked as True, the x and y positions will be flipped.
 
 **2) val_i (Value Space Indicator)(val_i = “ “):**
 
