@@ -1,0 +1,7 @@
+Features implemented thus far:
+
+val_ord 
+val_i
+gsi
+lsi
+
