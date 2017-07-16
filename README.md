@@ -46,7 +46,7 @@ activating this parameter will reduce performance speed by around 25 percent. fo
 
 value positions start from zero. So a 5 value pixel will be reordered from position 0-4.
 
-**1) val_ord_xy (flips x and y postions) (val_ord_xy = False) :**
+**1a) val_ord_xy (flips x and y postions) (val_ord_xy = False) :**
 
 If this parameter is marked as True, the x and y positions will be flipped.
 
