@@ -22,7 +22,7 @@ Converts an image into a string with a fully customizable output string format .
 
 ## Purpose: 
 
-The purpose of this library is to allow users to convert image files in fully customizable outputs. In doing so, it will allow users to send image data to customized image interpretation software and also allow robotic visual data collecting systems to preform preprossing on the image data before it is outputted to the robot’s CPU. 
+The purpose of this library is to allow users to convert image files to strings with fully customizable outputs. In doing so, it will allow users to send image data to customized image interpretation software and also allow robotic visual data collecting systems to preform preprossing on the image data before it is outputted to the robot’s CPU. 
 
 # Function Parameters: 
 
