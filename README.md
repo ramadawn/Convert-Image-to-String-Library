@@ -48,7 +48,9 @@ value positions start from zero. So a 5 value pixel will be reordered from posit
 
 **1a) val_ord_xy (flips x and y postions) (val_ord_xy = False) :**
 
-If this parameter is marked as True, the x and y positions will be flipped.
+If this parameter is marked as True, the value of position image x,y will be moved to postion y,x.
+This task is done before val_ord so that if Val_ord and val_ord_xy are both active then the position will be moved 
+and then the values will be reordered.
 
 **2) val_i (Value Space Indicator)(val_i = “ “):**
 
