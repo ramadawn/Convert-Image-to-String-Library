@@ -8,8 +8,8 @@ Created on Mon Jul 10 04:08:28 2017
 def img_size(image):
     # figures out image size
     #assumes image is some sort of rectangle
-    y = 0
-    x = 0 
+    cdef int y = 0
+    cdef int x = 0 
     
     while True: #figures out size of x
         try:
@@ -26,7 +26,8 @@ def img_size(image):
         
         except:
             break
-    
+    x = x - 1
+    y = y - 1 #size count is off by one
     return x , y 
         
 def value_order(pixel, val_ord): #reorders pixel values
@@ -38,6 +39,20 @@ def value_order(pixel, val_ord): #reorders pixel values
         pixel_value = pixel[val_ord_i]
         value_list.append(pixel_value)
     return value_list
+
+#def value_order_xy(image, x, y):    #converts values for x,y to y,x NOT USED CURRENTLY
+    #image_list = [] 
+    #for xpos in range(0,xtotal,1):
+        #xlist = []
+        #for ypos in range(0,ytotal,1):
+            #xlist.append(image[ypos,xpos])
+        #image_list.append(xlist)
+    #return image_list
+
+def pixel_reverse(image, xpos, ypos):  #reverses pixels positions x,y for y,x
+    pixel = image[xpos,ypos]
+    return pixel
+    
         
 
 def its(image, val_ord = '0', val_ord_xy = False, val_i = " ", val_type = "s", val_iol = False, 
@@ -58,13 +73,28 @@ def its(image, val_ord = '0', val_ord_xy = False, val_i = " ", val_type = "s", v
     
     x, y = img_size(image) #gets x and y vales of image
     
-    x = x - 1 
-    
     for ypos in range(0,y,1):
         for xpos in range (0,x,1):
-            pixel = image[ypos,xpos]
-            if val_ord != '0':
-                    pixel = value_order(pixel, val_ord)#get reorded pixels values
+            
+            if val_ord == '0' and val_ord_xy == False:
+                pixel = image[ypos,xpos]
+            
+            elif val_ord != '0' and val_ord_xy == True : 
+                pixel = pixel_reverse(image, xpos, ypos)#reverses x and y positions
+                pixel = value_order(pixel, val_ord)#get reorded pixels values
+            
+            elif val_ord_xy == True:
+                pixel = pixel_reverse(image, xpos, ypos)
+            
+            elif val_ord != '0':
+                pixel = value_order(pixel, val_ord)
+            
+            else:
+                pixel = image[ypos,xpos]
+                
+            
+                
+                
             for arraypos in range(0,array_size,1):
                 value = pixel[arraypos]              
                 char_value = str(value)
