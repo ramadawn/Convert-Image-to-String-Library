@@ -10,7 +10,7 @@ The purpose of this Module is to allow users to convert image files to fully cus
 ```python
 
 def its(image, val_ord = "0", val_ord_xy = False, val_i = " ", val_type = "s", val_iol = True, 
-         val_sol = 0, val_pvc = 1, val_pvc_type = None, gsi = ", ", 
+         val_sol = 0,val_eol = None, val_pvc = 1, val_pvc_type = None, gsi = ", ", 
          gsd = len(image[x,y]), mgs_input = None, gs_type = "s",
          gsiol = False, gs_sol = 0, gs_pvc = 1, gs_pvc_type = None, 
          lsi = "/n", ls_type = "s", ls_iol = False, ls_sol = 0, ls_pvc = 1, 
@@ -93,6 +93,12 @@ Tells the fuction whether or not to iterate over the imput list
 default: 0
 
 tells the fuction where on the list to start reading from
+
+**5a) val_eol (end in location on list) (eol = None):**
+
+default = None
+
+if this parameter is assigned and integer the its fuction will stop reading along the value space indicator list at this postion. It will iterate if val_iol = True.
 
 **6) val_pvc (position value change)(val_pvc = 1):**
 
