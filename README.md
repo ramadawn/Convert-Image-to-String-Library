@@ -82,9 +82,9 @@ Example if the current value is 10. The function will look up 10 in the dictiona
 
 
 
-**4) val_iol ( iterate over list True or False)(val_iol = False):**
+**4) val_iol ( iterate over list True or False)(val_iol = True):**
 
-default: ‘False’
+default: ‘True’
 
 Tells the fuction whether or not to iterate over the imput list
 
