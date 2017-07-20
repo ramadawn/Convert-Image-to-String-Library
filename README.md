@@ -33,6 +33,10 @@ Example: For RGB, red, green and blue would each be seperated by value space ind
 
 **1) val_ord (data ordering) (val_ord = "0") :**
 
+**(takes a string input which is converted to an integer inside of function)**
+
+**Note: string MUST be numbers with no space between  EX: '123' , '301', '405' position range is 0 to length of tuple - 1**
+
 (default = starts at position zero increases sequentially)  
 Takes in a position value string "xyz" and compares it to the pixel values array [R,G,B] and outputs pixel list with values equal to the position value of the string. For Example if an RGB array was passed with values 201. Then the new RGB array would be B (at position 2) R (at position 0) and G (at position 1) for a final array of BRG.
 
@@ -48,13 +52,15 @@ value positions start from zero. So a 5 value pixel will be reordered from posit
 
 **1a) val_ord_xy (flips x and y postions) (val_ord_xy = False) :**
 
+(Indicated as a boolian)
+
 If this parameter is marked as True, the value of position image x,y will be moved to postion y,x.
 This task is done before val_ord so that if Val_ord and val_ord_xy are both active then the position will be moved 
 and then the values will be reordered.
 
 **2) val_i (Value Space Indicator)(val_i = “ “):**
 
-default: whitespace
+default: whitespace (indicated as a string)
 
 string = “string”
 list = “0L”
@@ -66,7 +72,7 @@ The user may define any string, list or dictionary to serve as a seperator for t
 
 default: ‘s’
 
-This indicates the date type of value space being used. Indicated as a string.
+This indicates the date type of value space being used. (Indicated as a string.)
 
 ‘s’  denotes string
 ‘l’  denotes list
@@ -86,27 +92,35 @@ Example if the current value is 10. The function will look up 10 in the dictiona
 
 default: ‘True’
 
-Tells the fuction whether or not to iterate over the imput list
+Tells the fuction whether or not to iterate over the imput list (uses a Boolian)
+
+If value is set to **False**. The last value of the list used will be used for all remaining Value space idicators.
+
+If Val_sol is greater than Val_eol and val_pvc is negative then the list will read from val sol to Val_eol
+
+**Note the fuction has not yet been tested for a Val_sol greater than Val_eol with a positive val_pvc**
 
 **5) val_sol (start in location on list)(val_sol = 0):**
 
 default: 0
 
-tells the fuction where on the list to start reading from
+tells the fuction where on the list to start reading from (uses and integer)
 
 **5a) val_eol (end in location on list) (eol = None):**
 
 default = None
 
-if this parameter is assigned and integer the its fuction will stop reading along the value space indicator list at this postion. It will iterate if val_iol = True.
+tells the fuction where on the list to stop reading from (uses an integer)
+
+if this parameter is assigned an integer. Its fuction will stop reading along the value space indicator list at this postion. It will iterate if val_iol = True. 
 
 **6) val_pvc (position value change)(val_pvc = 1):**
 
 default: 1
 
-may be and interget or ‘l’ for list or ‘d’ for dictionary
+Must be an integer. Indicates the amount of spaces the pionter moves on the Value Type List with each iteration.
 
-will increase the position of the list cursor with each read by this amout. Number may be negative. In which case the cursor will bo backwards during each read. 
+will increase the position of the list cursor with each read by this amout. Number may be negative. In which case the cursor will go backwards during each read. 
 
 **7) val_pvc_type  (position value change list or dictionary)(val_pvc_type = None):**
 
