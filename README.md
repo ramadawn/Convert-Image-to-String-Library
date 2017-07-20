@@ -3,6 +3,8 @@ by Douglas Oak
 
 The purpose of this Module is to allow users to convert image files to fully custom string outputs. 
 
+**Note: not all features for this fuction have been implemented yet. See Implemented.txt for a list of useable features** 
+
 # Convert Image to String Module
 
 ** Function name = its() (Image To String)
