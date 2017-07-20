@@ -3,6 +3,11 @@ Features implemented thus far:
 val_ord 
 val_ord_xy
 val_i
+val_type
+val_iol
+val_sol
+val_eol
+val_pvc
 gsi
 lsi
 
