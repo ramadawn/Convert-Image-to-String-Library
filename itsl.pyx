@@ -53,10 +53,143 @@ def pixel_reverse(image, xpos, ypos):  #reverses pixels positions x,y for y,x
     pixel = image[xpos,ypos]
     return pixel
     
+def what_is_val_i_list(val_i_storage, last_position, val_iol, val_pvc, val_sol, val_eol):
+    val_i_list_len = len(val_i_storage)  
+    val_i_list_len = val_i_list_len - 1
+    cdef int val_i_position
+    val_i_position = last_position #to increase readability of code
+    cdef int val_test
+    if val_iol == True: # fixes problem with and statements and boolians
+        val_test = 1
+    else:
+        val_test = 0
+    
+    if val_eol != None:
+        if val_sol > val_eol:
+            if val_i_position < val_eol and val_test == 1:
+                val_i_position = val_sol
+                val_i = val_i_storage[val_i_position]
+                val_i_position = val_i_position + val_pvc
+                return val_i, val_i_position
+            else: 
+                if val_i_position < val_eol and val_test == 0:
+                    val_i_position = val_i_position - val_pvc
+                    val_i = val_i_storage[val_i_position]
+                    val_i_position = val_i_position + val_pvc
+                    return val_i, val_i_position
+                val_i = val_i_storage[val_i_position]
+                val_i_position = val_i_position + val_pvc
+                return val_i, val_i_position
+                
+            
+            
+    
+    #checks for list iteration boundries
+ 
+ #if pvc is positive and eol None, list will iterate from sol and actual end of list   
+    if val_pvc > 0: 
+        if val_eol == None:
+            if val_i_position > val_i_list_len and val_test == 1:
+                val_i_position = val_sol
+                val_i = val_i_storage[val_i_position]
+                val_i_position = val_i_position + val_pvc
+                #print("val_i_position > val_i_list_len & val_iol == True")
+                return val_i, val_i_position
+            
+            else: #if the list does not iterate put the counter back tp prev position
+                if val_i_position > val_i_list_len and val_test == 0:
+                    val_i_position = val_i_position - val_pvc
+                    val_i = val_i_storage[val_i_position]
+                    #print("val_i_position > val_i_list_len & val_iol == False")
+                    return val_i, val_i_position   
+                
+                val_i = val_i_storage[val_i_position]
+                val_i_position = val_i_position + val_pvc #change list pionter by pvc
+                #print("val_i_position is NOT > val_i_list_len & val_iol == TRUE")
+                return val_i, val_i_position   
+                
+            
+ #if pvc is positive and eol is an integer list will iterate from sol and eol    
+        elif val_i_position > val_eol and val_test == 1: 
+                val_i_position = val_sol
+                val_i = val_i_storage[val_i_position]
+                val_i_position = val_i_position + val_pvc
+                #print("val_i_position > val_eol & val_iol == True")
+                return val_i, val_i_position
         
+        else:
+                if val_i_position > val_eol and val_test == 0:
+                    val_i_position = val_i_position - val_pvc
+                    val_i = val_i_storage[val_i_position]
+                    #print("val_i_position > val_eol & val_iol == False")
+                    return val_i, val_i_position
+                val_i = val_i_storage[val_i_position]
+                val_i_position = val_i_position + val_pvc #change list pionter by pvc
+                #print("val_i_position is NOT > val_eol & val_iol == True")
+                return val_i, val_i_position 
+        
+        
+ 
+ #if pvc is negative and eol is an integer list will iterate from eol to sol  
+    elif val_pvc < 0: 
+        if val_eol == None:
+            if val_i_position < 0 and val_test == 1:
+                val_i_position = val_i_list_len
+                val_i = val_i_storage[val_i_position]
+                val_i_position = val_i_position + val_pvc
+                #print("val_i_position < 0 & val_iol == True")
+                return val_i, val_i_position
+        
+            else: #if the list does not iterate put the counter back tp prev position
+                if val_i_position < 0 and val_test == 0:
+                    val_i_position = val_i_position - val_pvc
+                    val_i = val_i_storage[val_i_position]
+                    #print("val_i_position < 0 & val_iol == False")
+                    return val_i, val_i_position   
+                val_i = val_i_storage[val_i_position]
+                val_i_position = val_i_position + val_pvc #change list pionter by pvc
+                #print("val_i_position is NOT < 0 & val_iol == True")
+                return val_i, val_i_position   
+            
+        elif val_i_position < val_sol and val_test == 1:
+            val_i_position = val_eol
+            val_i = val_i_storage[val_i_position]
+            val_i_position = val_i_position + val_pvc
+            #print("val_i_position < val_sol & val_iol == True")
+            return val_i, val_i_position
+        
+        else:
+            if val_i_position < val_sol and val_test == 0:
+                val_i_position = val_i_position - val_pvc
+                val_i = val_i_storage[val_i_position]
+                #print("val_i_position < val_sol & val_iol == False")
+                return val_i, val_i_position 
+            val_i = val_i_storage[val_i_position]
+            val_i_position = val_i_position + val_pvc #change list pionter by pvc
+            #print("val_i_position is NOT < val_sol & val_iol == True")
+            return val_i, val_i_position 
+    
+    else:#if val_pvc = 0
+        val_i = val_i_storage[val_i_position]
+        print("if val_pvc = 0")
+        return val_i, val_i_position
+        
+        
+    val_i = "Error: incorrect parameter value used"
+    return val_i, val_i_position        
+        
+            
+        
+def what_is_val_i_dict(val_i_storage, key): 
+    value = val_i_storage.get(key)
+    if value == None:
+        value = 'None'
+    return value    
 
-def its(image, val_ord = '0', val_ord_xy = False, val_i = " ", val_type = "s", val_iol = False, 
-         val_sol = 0, val_pvc = 1, val_pvc_type = None, gsi = ", ", 
+
+    
+def its(image, val_ord = "0", val_ord_xy = False, val_i = " ", val_type = "s", val_iol = True, 
+         val_sol = 0, val_eol = None, val_pvc = 1, val_pvc_type = None, gsi = ", ", 
          gsd = None, mgs_input = None, gs_type = "s",
          gsiol = False, gs_sol = 0, gs_pvc = 1, gs_pvc_type = None, 
          lsi = "/n", ls_type = "s", ls_iol = False, ls_sol = 0, ls_pvc = 1, 
@@ -68,8 +201,10 @@ def its(image, val_ord = '0', val_ord_xy = False, val_i = " ", val_type = "s", v
     cdef int array_size = 3
     cdef int y = 0
     cdef int x = 0
-    cdef int ypos, xpos, arraypos, value
+    cdef int ypos, xpos, arraypos, value, 
+    cdef int val_i_position = val_sol
     cdef unicode char_value
+    val_i_storage = val_i
     
     x, y = img_size(image) #gets x and y vales of image
     
@@ -99,7 +234,19 @@ def its(image, val_ord = '0', val_ord_xy = False, val_i = " ", val_type = "s", v
                 value = pixel[arraypos]              
                 char_value = str(value)
                 output_list.append(char_value) #attaches values
-                output_list.append(val_i) # value indicator		        
+                if val_type != 's'and val_type == 'l':
+                    last_position = val_i_position
+                    
+                    val_i, val_i_position = what_is_val_i_list(val_i_storage, last_position, val_iol, val_pvc, val_sol, val_eol) #if val_type is a list or dictionary
+                    
+                    output_list.append(val_i)
+                    
+                elif val_type == 'd':
+                    val_i = what_is_val_i_dict(val_i_storage, char_value)
+                    output_list.append(val_i)
+                    
+                else:
+                    output_list.append(val_i) # value indicator		        
             
             output_list.append(gsi) #attaches group space indicator
            
