@@ -120,13 +120,13 @@ if this parameter is assigned an integer. Its fuction will stop reading along th
 
 default: 1
 
-Must be an integer. Indicates the amount of spaces the pionter moves on the Value Type List with each iteration.
+Must be an integer; unless val_pvc_type indicates a list or a dictionary. Indicates the amount of spaces the pionter moves on the Value Type List with each iteration.
 
 will increase the position of the list cursor with each read by this amout. Number may be negative. In which case the cursor will go backwards during each read. 
 
-**7) val_pvc_type  (position value change list or dictionary)(val_pvc_type = None):**
+**7) val_pvc_type  (position value change list or dictionary)(val_pvc_type = 'i'):**
 
-default: None
+default: 'i'
 ‘l’ = list
 ‘d’ = dictionary
 
