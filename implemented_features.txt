@@ -8,6 +8,7 @@ val_iol
 val_sol
 val_eol
 val_pvc
+val_pvc_type
 gsi
 lsi
 
