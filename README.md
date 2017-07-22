@@ -126,15 +126,20 @@ will increase the position of the list cursor with each read by this amout. Numb
 
 **7) val_pvc_type  (position value change list or dictionary)(val_pvc_type = 'i'):**
 
-default: 'i'
+default: 'i' This idicates a single integer is being used. The position value change on the space value indicator list will change by this amount with each new value added.
 ‘l’ = list
 ‘d’ = dictionary
 
 allows the user to input a list or dictionary for the postion value change parameter.
 
-If parameter is a dictionary: The current entire x,y value will be used to determine the next position of the of the Value Space list to read from.
+If parameter is a dictionary: The current value spave idicator will be used as the key for the pvc dictionary. The value at that key will be used for the next position value change on the value space indicator list.
+**In order for the PVC dictionary to function it must contain the following key value pair**
+
+{'start':(some integer)} **This will always be the first PVC integer used**
 
 If paramter is a list: the fuction will go down the list. (iterating if nesseary) using that value as the position value change parameter.
+
+**NOTE in both list and dictionary cases the out put value MUST be an integer while the key for the dictionary MUST be a string**
 
 **Parameters 8, 11 to 15  do the same as above but are used to format the value group indicators. Differences as follows:**
 
