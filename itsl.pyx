@@ -52,7 +52,8 @@ def value_order(pixel, val_ord): #reorders pixel values
 def pixel_reverse(image, xpos, ypos):  #reverses pixels positions x,y for y,x
     pixel = image[xpos,ypos]
     return pixel
-    
+
+# Deals with value indicator parameters that are lists     
 def what_is_val_i_list(val_i_storage, last_position, val_iol, val_pvc, val_sol, val_eol):
     val_i_list_len = len(val_i_storage)  
     val_i_list_len = val_i_list_len - 1
@@ -124,7 +125,7 @@ def what_is_val_i_list(val_i_storage, last_position, val_iol, val_pvc, val_sol, 
                     #print("val_i_position > val_eol & val_iol == False")
                     return val_i, val_i_position
                 val_i = val_i_storage[val_i_position]
-                val_i_position = val_i_position + val_pvc #change list pionter by pvc
+                val_i_position = val_i_position + val_pvc #change listprint(output_list)
                 #print("val_i_position is NOT > val_eol & val_iol == True")
                 return val_i, val_i_position 
         
@@ -175,21 +176,35 @@ def what_is_val_i_list(val_i_storage, last_position, val_iol, val_pvc, val_sol, 
         return val_i, val_i_position
         
         
-    val_i = "Error: incorrect parameter value used"
-    return val_i, val_i_position        
+    error = "Error: incorrect parameter value used"
+    return error, val_i_position        
         
             
         
-def what_is_val_i_dict(val_i_storage, key): 
+def what_val_i_dict_value(val_i_storage, key): #recieved dictionary and key and returns value
     value = val_i_storage.get(key)
     if value == None:
         value = 'None'
-    return value    
+    return value  
 
+def what_val_pvc_dict_value(val_pvc_type_storage, key):
+    value = val_pvc_type_storage.get(key)
+    if value == None:
+        value = 1
+    return value 
 
+def val_pvc_return(val_pvc_type_storage, val_pvc_last_position):# deals with val_pvc that are lists
+    val_pvc_list_len = len(val_pvc_type_storage)  
+    val_pvc_list_len = val_pvc_list_len - 1
+    if val_pvc_last_position > val_pvc_list_len:
+       val_pvc_last_position = 0 
+    val_pvc = val_pvc_type_storage[val_pvc_last_position]
+    val_pvc_new_position = val_pvc_last_position + 1
+    return val_pvc, val_pvc_new_position
+    
     
 def its(image, val_ord = "0", val_ord_xy = False, val_i = " ", val_type = "s", val_iol = True, 
-         val_sol = 0, val_eol = None, val_pvc = 1, val_pvc_type = None, gsi = ", ", 
+         val_sol = 0, val_eol = None, val_pvc = 1, val_pvc_type = 'i', gsi = ", ", 
          gsd = None, mgs_input = None, gs_type = "s",
          gsiol = False, gs_sol = 0, gs_pvc = 1, gs_pvc_type = None, 
          lsi = "/n", ls_type = "s", ls_iol = False, ls_sol = 0, ls_pvc = 1, 
@@ -201,11 +216,13 @@ def its(image, val_ord = "0", val_ord_xy = False, val_i = " ", val_type = "s", v
     cdef int array_size = 3
     cdef int y = 0
     cdef int x = 0
-    cdef int ypos, xpos, arraypos, value, 
+    cdef int ypos, xpos, arraypos, value, val_i_last_position, val_pvc_last_position, val_pvc_new_position
     cdef int val_i_position = val_sol
     cdef unicode char_value
-    val_i_storage = val_i
-    
+    val_pvc_last_position = 0
+    val_i_storage = val_i #if val_i is a list of dictionary it is stored here so val_i can be retasked
+    val_pvc_type_storage = val_pvc #if val_pvc_type is a list of dictionary it is stored here so val_pvc_type can be retasked
+    val_i = 'start'
     x, y = img_size(image) #gets x and y vales of image
     
     for ypos in range(0,y,1):
@@ -234,20 +251,41 @@ def its(image, val_ord = "0", val_ord_xy = False, val_i = " ", val_type = "s", v
                 value = pixel[arraypos]              
                 char_value = str(value)
                 output_list.append(char_value) #attaches values
-                if val_type != 's'and val_type == 'l':
-                    last_position = val_i_position
+                
+                if val_pvc_type != 'i': #figures out position value change for pionter on value indicator list
+                
+                    if val_pvc_type == 'l':
+                        val_pvc, val_pvc_new_position = val_pvc_return(val_pvc_type_storage, val_pvc_last_position)
+                        val_pvc_last_position = val_pvc_new_position
                     
-                    val_i, val_i_position = what_is_val_i_list(val_i_storage, last_position, val_iol, val_pvc, val_sol, val_eol) #if val_type is a list or dictionary
+                    else: 
+                        
+                        print("Val_i = ",val_i)
+                        print("val_i_storage = ",val_i_storage)
+                        val_pvc = what_val_pvc_dict_value(val_pvc_type_storage, val_i)
+                        print("val_pvc = ",val_pvc)
+                if val_type != 's'and val_type == 'l': #figures out what the value indicator is
+                    val_i_last_position = val_i_position
+                
+                    
+                    print("val_pvc_type_storage = ",val_pvc_type_storage)
+                    print("last_position = ",val_i_last_position)
+                    print("Val_i = ",val_i)
+                    print("Position = ",val_i_position)
+                    
+                    val_i, val_i_position = what_is_val_i_list(val_i_storage, val_i_last_position, val_iol, val_pvc, val_sol, val_eol) #if val_type is a list or dictionary
                     
                     output_list.append(val_i)
                     
+                    
                 elif val_type == 'd':
-                    val_i = what_is_val_i_dict(val_i_storage, char_value)
+                    val_i = what_val_i_dict_value(val_i_storage, char_value)
                     output_list.append(val_i)
                     
                 else:
-                    output_list.append(val_i) # value indicator		        
-            
+                    output_list.append(val_i) # value indicator	
+                print(output_list)
+                input("press")
             output_list.append(gsi) #attaches group space indicator
            
         output_list.append(lsi) #attaches line space indicator
