@@ -12,7 +12,7 @@ The purpose of this Module is to allow users to convert image files to fully cus
 ```python
 
 def its(image, val_ord = "0", val_ord_xy = False, val_i = " ", val_type = "s", val_iol = True, 
-         val_sol = 0, val_pvc = 1, val_pvc_type = 'i', gsi = ", ", 
+         val_sol = 0, val_pvc = 1, val_pvc_type = 'i', gs_i = ", ", 
          gsd = None, gs_eol = None, mgs_input = None, gs_type = "s",
          gs_iol = True, gs_sol = 0, val_eol = None, gs_pvc = 1, gs_pvc_type = None, 
          lsi = "/n", ls_type = "s", ls_iol = False, ls_sol = 0, ls_pvc = 1, 
@@ -152,7 +152,7 @@ If paramter is a list: the fuction will go down the list. (iterating if nesseary
 Indicators seperating each group of values.
 Example: For the three values that compose the RGB value. These three values are seperates by the group space.
 
-**8) gsi (value group indicator)(gsi = “,”):**
+**8) gs_i (value group indicator)(gsi = “,”):**
 
 default (“,”) same as parameter 2 except is used on the value group indicator
 
