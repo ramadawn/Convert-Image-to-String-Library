@@ -12,10 +12,10 @@ The purpose of this Module is to allow users to convert image files to fully cus
 ```python
 
 def its(image, val_ord = "0", val_ord_xy = False, val_i = " ", val_type = "s", val_iol = True, 
-         val_sol = 0, val_pvc = 1, val_pvc_type = 'i', gs_i = ", ", 
-         gsd = None, gs_eol = None, mgs_input = None, gs_type = "s",
-         gs_iol = True, gs_sol = 0, val_eol = None, gs_pvc = 1, gs_pvc_type = None, 
-         lsi = "/n", ls_type = "s", ls_iol = False, ls_sol = 0, ls_pvc = 1, 
+         val_sol = 0,val_eol = None , val_pvc = 1, val_pvc_type = 'i', gsi_i = ", ", 
+         gsd = None, mgs_input = None, gs_type = "s", gs_iol = True, gs_sol = 0, 
+         gs_eol = None, gs_pvc = 1, gs_pvc_type = 'i', 
+         ls_i = "/n", ls_i_type = "s", ls_iol = False, ls_sol = 0, ls_pvc = 1, 
          ls_pvc_type = None):
 
 ```
@@ -224,11 +224,11 @@ default: None (see parameter 7) works as parameter 7 except used on the value gr
 
 Indicators seperating each line in an image.
 
-**16) lsi (Line Space Indicator)(lsi = “/n”):**
+**16) ls_i (Line Space Indicator)(lsi = “/n”):**
 
 default (“/n”) same as parameter 2 except is used on the line space indicator
 
-**17) ls_type (Line Space Data Type)(ls_type = ’s‘):**
+**17) ls_i_type (Line Space Data Type)(ls_type = ’s‘):**
 
 default = ‘s’  (see parameter 3) works as parameter 3 except is used on the line space indicator
 
@@ -239,6 +239,8 @@ default = False (see parameter 4) works as parameter 4 except is used on the val
 **19) ls_sol (Start in Location on List)(ls_sol = 0):**
 
 default = 0 (see parameter 5) works as parameter 5 except used on the value group indicator
+
+**19a) ls_eol (finish using list at this piont)(ls_eol = None):**
 
 
 **20) ls_pvc (Position Value Change)(ls_pvc = 1):**
