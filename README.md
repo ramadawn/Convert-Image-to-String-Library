@@ -12,9 +12,9 @@ The purpose of this Module is to allow users to convert image files to fully cus
 ```python
 
 def its(image, val_ord = "0", val_ord_xy = False, val_i = " ", val_type = "s", val_iol = True, 
-         val_sol = 0, val_eol = None, val_pvc = 1, val_pvc_type = 'i', gsi = ", ", 
-         gsd = None, mgs_input = None, gs_type = "s",
-         gsiol = False, gs_sol = 0, gs_pvc = 1, gs_pvc_type = None, 
+         val_sol = 0, val_pvc = 1, val_pvc_type = 'i', gsi = ", ", 
+         gsd = None, gs_eol = None, mgs_input = None, gs_type = "s",
+         gsiol = False, gs_sol = 0, val_eol = None, gs_pvc = 1, gs_pvc_type = None, 
          lsi = "/n", ls_type = "s", ls_iol = False, ls_sol = 0, ls_pvc = 1, 
          ls_pvc_type = None):
 
@@ -193,6 +193,20 @@ default = False (see parameter 4) works as parameter 4 except is used on the val
 **13) gs_sol (Group Space Start in Location on List)(gs_sol = 0):**
 
 default = 0 (see parameter 5) works as parameter 5 except used on the value group indicator
+
+**13a)gs_eol (end in location on list) (gs_eol = None):
+
+default = None
+
+tells the fuction where on the list to stop reading from (uses an integer)
+
+if this parameter is assigned an integer. Its fuction will stop reading along the value space indicator list at this postion. It will iterate if gs_iol) gs_eol (end in location on list) (gs_eol = None):
+
+default = None
+
+tells the fuction where on the list to stop reading from (uses an integer)
+
+if this parameter is assigned an integer. Its fuction will stop reading along the value space indicator list at this postion. It will iterate if gs_iol = True.
 
 **14) gs_pvc (Group Space Position Value Change)(gs_pvc = 1):**
 
