@@ -14,7 +14,7 @@ The purpose of this Module is to allow users to convert image files to fully cus
 def its(image, val_ord = "0", val_ord_xy = False, val_i = " ", val_type = "s", val_iol = True, 
          val_sol = 0, val_pvc = 1, val_pvc_type = 'i', gsi = ", ", 
          gsd = None, gs_eol = None, mgs_input = None, gs_type = "s",
-         gsiol = False, gs_sol = 0, val_eol = None, gs_pvc = 1, gs_pvc_type = None, 
+         gs_iol = True, gs_sol = 0, val_eol = None, gs_pvc = 1, gs_pvc_type = None, 
          lsi = "/n", ls_type = "s", ls_iol = False, ls_sol = 0, ls_pvc = 1, 
          ls_pvc_type = None):
 
@@ -186,7 +186,7 @@ For example, for an RGB array beimng converted into a string. These stings would
 
 default = ‘s’  (see parameter 3) works as parameter 3 except is used on the value group indicator
 
-**12) gs_iol ( Group Space Iterate Over List True or False)(gsiol = False):**
+**12) gs_iol ( Group Space Iterate Over List True or False)(gsiol = True):**
 
 default = False (see parameter 4) works as parameter 4 except is used on the value group indicator
 
