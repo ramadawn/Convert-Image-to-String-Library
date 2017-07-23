@@ -12,7 +12,7 @@ The purpose of this Module is to allow users to convert image files to fully cus
 ```python
 
 def its(image, val_ord = "0", val_ord_xy = False, val_i = " ", val_type = "s", val_iol = True, 
-         val_sol = 0,val_eol = None , val_pvc = 1, val_pvc_type = 'i', gsi_i = ", ", 
+         val_sol = 0,val_eol = None , val_pvc = 1, val_pvc_type = 'i', gs_i = ", ", 
          gsd = None, mgs_input = None, gs_type = "s", gs_iol = True, gs_sol = 0, 
          gs_eol = None, gs_pvc = 1, gs_pvc_type = 'i', 
          ls_i = "/n", ls_i_type = "s", ls_iol = False, ls_sol = 0, ls_pvc = 1, 
