@@ -54,7 +54,7 @@ def pixel_reverse(image, xpos, ypos):  #reverses pixels positions x,y for y,x
     return pixel
 
 # Deals with value indicator parameters that are lists     
-def what_is_val_i_list(val_i_storage, last_position, val_iol, val_pvc, val_sol, val_eol):
+def what_is_i_list(val_i_storage, last_position, val_iol, val_pvc, val_sol, val_eol):
     val_i_list_len = len(val_i_storage)  
     val_i_list_len = val_i_list_len - 1
     cdef int val_i_position
@@ -181,53 +181,60 @@ def what_is_val_i_list(val_i_storage, last_position, val_iol, val_pvc, val_sol, 
         
             
         
-def what_val_i_dict_value(val_i_storage, key): #recieved dictionary and key and returns value
-    value = val_i_storage.get(key)
+def what_i_dict_value(i_storage, key): #recieved dictionary and key and returns value
+    value = i_storage.get(key)
     if value == None:
         value = 'None'
     return value  
 
-def what_val_pvc_dict_value(val_pvc_type_storage, key):
-    value = val_pvc_type_storage.get(key)
-    if value == None:
-        value = 1
-    return value 
+def what_pcv_dict_value(pvc_type_storage, key):
+    pvc_value = pvc_type_storage.get(key)
+    if pvc_value == None:
+        pvc_value = 1
+    return pvc_value 
 
-def val_pvc_return(val_pvc_type_storage, val_pvc_last_position):# deals with val_pvc that are lists
-    val_pvc_list_len = len(val_pvc_type_storage)  
-    val_pvc_list_len = val_pvc_list_len - 1
-    if val_pvc_last_position > val_pvc_list_len:
-       val_pvc_last_position = 0 
-    val_pvc = val_pvc_type_storage[val_pvc_last_position]
-    val_pvc_new_position = val_pvc_last_position + 1
-    return val_pvc, val_pvc_new_position
+def pvc_list_return(pvc_type_storage, pvc_last_position):# deals with val_pvc that are lists
+    pvc_list_len = len(pvc_type_storage)  
+    pvc_list_len = pvc_list_len - 1
+    if pvc_last_position > pvc_list_len:
+       pvc_last_position = 0 
+    pvc = pvc_type_storage[pvc_last_position]
+    pvc_new_position = pvc_last_position + 1
+    return pvc, pvc_new_position
     
     
 def its(image, val_ord = "0", val_ord_xy = False, val_i = " ", val_type = "s", val_iol = True, 
-         val_sol = 0, val_eol = None, val_pvc = 1, val_pvc_type = 'i', gsi = ", ", 
-         gsd = None, mgs_input = None, gs_type = "s",
-         gsiol = False, gs_sol = 0, gs_pvc = 1, gs_pvc_type = None, 
-         lsi = "/n", ls_type = "s", ls_iol = False, ls_sol = 0, ls_pvc = 1, 
+         val_sol = 0,val_eol = None , val_pvc = 1, val_pvc_type = 'i', gs_i = ", ", 
+         gsd = None, mgs_input = None, gs_type = "s", gs_iol = True, gs_sol = 0, 
+         gs_eol = None, gs_pvc = 1, gs_pvc_type = 'i', 
+         ls_i = "/n", ls_i_type = "s", ls_iol = False, ls_sol = 0, ls_pvc = 1, 
          ls_pvc_type = None):
     
     pixel = []
     output_list = [] #initialize output list
     output_string = "" #initialize output string
+    space = " "
     cdef int array_size = 3
     cdef int y = 0
     cdef int x = 0
-    cdef int ypos, xpos, arraypos, value, val_i_last_position, val_pvc_last_position, val_pvc_new_position
+    cdef int ypos, xpos, arraypos, value, val_i_last_position, val_pvc_last_position, val_pvc_new_position, gsi_pvc_last_position, gsi_pvc_new_position
     cdef int val_i_position = val_sol
+    cdef int gs_i_position = gs_sol
     cdef unicode char_value
     val_pvc_last_position = 0
     val_i_storage = val_i #if val_i is a list of dictionary it is stored here so val_i can be retasked
+    gs_i_storage = gs_i
     val_pvc_type_storage = val_pvc #if val_pvc_type is a list of dictionary it is stored here so val_pvc_type can be retasked
     val_i = 'start'
+    gs_i = 'start'
+    gsi_pvc_type_storage = gs_pvc
+    
     x, y = img_size(image) #gets x and y vales of image
+    
     
     for ypos in range(0,y,1):
         for xpos in range (0,x,1):
-            
+ #-----------DIRECT PIXEL OPERATIONS----------------------------------------------------------------------------------           
             if val_ord == '0' and val_ord_xy == False:
                 pixel = image[ypos,xpos]
             
@@ -245,54 +252,99 @@ def its(image, val_ord = "0", val_ord_xy = False, val_i = " ", val_type = "s", v
                 pixel = image[ypos,xpos]
                 
             
-                
+ # -------------ADD PIXEL VALUES TO STRING--------------------------------------------------------------            
                 
             for arraypos in range(0,array_size,1):
-                value = pixel[arraypos]              
-                char_value = str(value)
-                output_list.append(char_value) #attaches values
-                
-                if val_pvc_type != 'i': #figures out position value change for pionter on value indicator list
-                
+                if val_type == 's':
+                    value = pixel[arraypos]              
+                    char_value = str(value)
+                    if val_i_storage[-1] != space:
+                        output_list.append(space)
+                    output_list.append(char_value) #attaches values
+                else:
+                    value = pixel[arraypos]              
+                    char_value = str(value)
+                    if val_i_storage[-1] != space:
+                        output_list.append(space)
+                    output_list.append(char_value) #attaches values
+                    
+ #-------OPERATIOND WITHIN ARRAYPOS FOR LOOP------------------------------------------------------------
+ #-----------------Value Space Operations---------------------------------------------------------------    
+ 
+      #figures out position value change for pionter on value indicator list
+                if val_pvc_type != 'i': 
                     if val_pvc_type == 'l':
-                        val_pvc, val_pvc_new_position = val_pvc_return(val_pvc_type_storage, val_pvc_last_position)
+                        val_pvc, val_pvc_new_position = pvc_list_return(val_pvc_type_storage, val_pvc_last_position)
                         val_pvc_last_position = val_pvc_new_position
                     
                     else: 
+                        val_pvc = what_pcv_dict_value(val_pvc_type_storage, val_i)
+                                  
                         
-                        print("Val_i = ",val_i)
-                        print("val_i_storage = ",val_i_storage)
-                        val_pvc = what_val_pvc_dict_value(val_pvc_type_storage, val_i)
-                        print("val_pvc = ",val_pvc)
-                if val_type != 's'and val_type == 'l': #figures out what the value indicator is
-                    val_i_last_position = val_i_position
+ #----------------Value Indicator List/Dictionary Position Value Change Operations----------------------------------                
                 
+                if val_type == 's': #figures out what the value indicator is
+                    if val_i_storage[0] != space:
+                        output_list.append(space)
+                    output_list.append(val_i_storage)
                     
-                    print("val_pvc_type_storage = ",val_pvc_type_storage)
-                    print("last_position = ",val_i_last_position)
-                    print("Val_i = ",val_i)
-                    print("Position = ",val_i_position)
                     
-                    val_i, val_i_position = what_is_val_i_list(val_i_storage, val_i_last_position, val_iol, val_pvc, val_sol, val_eol) #if val_type is a list or dictionary
-                    
+                elif val_type == 'l':
+                    val_i_last_position = val_i_position
+                    val_i, val_i_position = what_is_i_list(val_i_storage, val_i_last_position, val_iol, val_pvc, val_sol, val_eol) #if val_type is a list or dictionary
+                    if val_i[0] != space:
+                        output_list.append(space)
                     output_list.append(val_i)
                     
-                    
-                elif val_type == 'd':
-                    val_i = what_val_i_dict_value(val_i_storage, char_value)
-                    output_list.append(val_i)
                     
                 else:
-                    output_list.append(val_i) # value indicator	
-                print(output_list)
-                input("press")
-            output_list.append(gsi) #attaches group space indicator
-           
-        output_list.append(lsi) #attaches line space indicator
+                    val_i = what_i_dict_value(val_i_storage, value)
+                    if val_i[0] != space:
+                        output_list.append(space)
+                    output_list.append(val_i) # value indicator
+                   
+                    
+            #---------------OPERATION WITHIN XPOS FOR LOOP       
+ #-------------------------Group Space Operations-----------------------------------------------------------------------------------------           
+            if gs_pvc_type != 'i': #figures out position value change for pionter on value indicator list
+                if gs_pvc_type == 'l':
+                    gs_pvc, gsi_pvc_new_position = pvc_list_return(gsi_pvc_type_storage, gsi_pvc_last_position)
+                    gsi_pvc_last_position = gsi_pvc_new_position
+                    
+                else: 
+                    gs_pvc = what_pcv_dict_value(gsi_pvc_type_storage, gs_i)
+                #attaches group space indicator       
+            if gs_type == 's': #figures out what the value indicator is
+                if gs_i_storage[0] != space:
+                    output_list.append(space)
+                output_list.append(gs_i_storage) # value indicator
+                
+                
+                    
+                    
+            elif gs_type == 'l':
+                gs_i_last_position = gs_i_position
+                gs_i, gs_i_position = what_is_i_list(gs_i_storage, gs_i_last_position, gs_iol, gs_pvc, gs_sol, gs_eol) #if val_type is a list or dictionary
+                if gs_i[0] != space:
+                    output_list.append(space)
+                output_list.append(gs_i)
+                
+                
+                    
+            else:
+                gs_i = what_i_dict_value(gs_i_storage, val_i)
+                if gs_i[0] != space:
+                    output_list.append(space)
+                output_list.append(gs_i)
+                
+            output_string = ''.join(output_list) 
+            
+        if ls_i[0] != space:
+                    output_list.append(space)
+        output_list.append(ls_i) #attaches line space indicator
         
     
     output_string = ''.join(output_list) #converts list to string
     
-      
        
     return output_string
