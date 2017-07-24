@@ -29,7 +29,7 @@ The purpose of this library is to allow users to convert image files to strings 
 
 ## White Space: 
 
-Its function will add white space before each new string addition if no whitespace is to be found. For example if the Value space indicator is submitted as "x", the string will output value x. On the other hand the Value space indicator it " x" then the output will still be Value x. Multiple white spaces will not be accounted for. So a value space indicator of "  x" will attach as Value  x.
+Its function will add white space before each new string addition if no whitespace is to be found. For example if the Value space indicator is submitted as "(no white space)x", the string will output value(white space)x. On the other hand the Value space indicator is "(white space)x" then the output will still be Value x. Multiple white spaces will not be accounted for. So a value space indicator of "(double white space)x" will attach as Value(double white space)x.
 
 # Function Parameters: 
 
