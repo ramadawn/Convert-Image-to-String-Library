@@ -127,6 +127,12 @@ default: 1 **Must be an integer**
 
 Must be an integer; unless val_pvc_type indicates a list or a dictionary. Indicates the amount of spaces the pionter moves on the Value Type List with each iteration.
 
+**If using a list for val_pvc you must input a list of integers (val_pvc_type = "l")**
+
+** If using a list of val_pvc you must input a dictionary with integers for keys and Values**
+
+The Keys for dictionaries will be compared to the last pixel value used. I.E in RGB, if the value for G is attached the val_pvc dictionary select a PVC value for G key. If no value is present the PVC return as 1 and simple move to the next entry in the Value Space indicator list. 
+
 will increase the position of the list cursor with each read by this amout. Number may be negative. In which case the cursor will go backwards during each read. 
 
 **7) val_pvc_type  (position value change list or dictionary)(val_pvc_type = 'i'):**
@@ -134,7 +140,7 @@ will increase the position of the list cursor with each read by this amout. Numb
 **must be a string**
 
 default: 'i' This idicates a single integer is being used. The position value change on the space value indicator list will change by this amount with each new value added.
-‘l’ = list
+‘l’ = list 
 ‘d’ = dictionary
 
 allows the user to input a list or dictionary for the postion value change parameter.
@@ -218,6 +224,12 @@ if this parameter is assigned an integer. Its fuction will stop reading along th
 
 default: 1 (see parameter 6) works as parameter 6 except used on the value group indicator **Must be an integer**
 
+**If using a list for gs_pvc you must input a list of integers (val_pvc_type = "l")**
+
+** If using a list of gs_pvc you must input a dictionary with strings for keys and  Integers for Values**
+
+The Keys for dictionaries will be compared to the last group space indicator used (this will be used as the key with the associate value becoming the new Position Value Change). If no value is present the PVC return as 1 and simple move to the next entry in the Value Space indicator list. 
+
 
 **15) gs_pvc_type (Group Space Position Value Change List or Dictionary)(gs_pvc_type = None):**
 
@@ -248,7 +260,7 @@ default = 0 (see parameter 5) works as parameter 5 except used on the value grou
 
 
 **20) ls_pvc (Position Value Change)(ls_pvc = 1):**
-
+alue 
 default: 1 (see parameter 6) works as parameter 6 except used on the value group indicator
 
 **21) ls_pvc_type (Position Value Change List or Dictionary)(ls_pvc_type = None):**
