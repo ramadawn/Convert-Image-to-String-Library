@@ -10,5 +10,11 @@ val_eol
 val_pvc
 val_pvc_type
 gsi
+gs_type
+gs_iol
+gs_sol
+gs_eol
+gs_pvc
+gs_pvc_type
 lsi
 
