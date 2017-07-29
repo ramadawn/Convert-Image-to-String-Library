@@ -15,8 +15,8 @@ def its(image, val_ord = "0", val_ord_xy = False, val_i = " ", val_type = "s", v
          val_sol = 0,val_eol = None , val_pvc = 1, val_pvc_type = 'i', gs_i = ", ", 
          gsd = None, mgs_input = None, gs_type = "s", gs_iol = True, gs_sol = 0, 
          gs_eol = None, gs_pvc = 1, gs_pvc_type = 'i', 
-         ls_i = "/n", ls_i_type = "s", ls_iol = False, ls_sol = 0, ls_pvc = 1, 
-         ls_pvc_type = None):
+         ls_i = "/n", ls_type = "s", ls_iol = False, ls_sol = 0, ls_eol = None, ls_pvc = 1, 
+         ls_pvc_type = 'i'):
 
 ```
 
@@ -250,7 +250,7 @@ default = ‘s’  (see parameter 3) works as parameter 3 except is used on the 
 
 **18) ls_iol ( Iterate Over List True or False)(ls_iol = False):**
 
-default = False (see parameter 4) works as parameter 4 except is used on the value group indicator
+default = True (see parameter 4) works as parameter 4 except is used on the Line Space indicator
 
 **19) ls_sol (Start in Location on List)(ls_sol = 0):**
 
@@ -258,6 +258,7 @@ default = 0 (see parameter 5) works as parameter 5 except used on the value grou
 
 **19a) ls_eol (finish using list at this piont)(ls_eol = None):**
 
+Works as parameter 5a except for Line Space Indicator List
 
 **20) ls_pvc (Position Value Change)(ls_pvc = 1):**
 alue 
