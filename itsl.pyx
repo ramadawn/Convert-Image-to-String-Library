@@ -207,8 +207,8 @@ def its(image, val_ord = "0", val_ord_xy = False, val_i = " ", val_type = "s", v
          val_sol = 0,val_eol = None , val_pvc = 1, val_pvc_type = 'i', gs_i = ", ", 
          gsd = None, mgs_input = None, gs_type = "s", gs_iol = True, gs_sol = 0, 
          gs_eol = None, gs_pvc = 1, gs_pvc_type = 'i', 
-         ls_i = "/n", ls_i_type = "s", ls_iol = False, ls_sol = 0, ls_pvc = 1, 
-         ls_pvc_type = None):
+         ls_i = "/n", ls_type = "s", ls_iol = False, ls_sol = 0, ls_eol = None, ls_pvc = 1, 
+         ls_pvc_type = 'i'):
     
     pixel = []
     output_list = [] #initialize output list
@@ -217,17 +217,19 @@ def its(image, val_ord = "0", val_ord_xy = False, val_i = " ", val_type = "s", v
     cdef int array_size = 3
     cdef int y = 0
     cdef int x = 0
-    cdef int ypos, xpos, arraypos, value, val_i_last_position, val_pvc_last_position, val_pvc_new_position, gsi_pvc_last_position, gsi_pvc_new_position
+    cdef int ypos, xpos, arraypos, value, val_i_last_position, val_pvc_last_position, val_pvc_new_position, gsi_pvc_last_position, gsi_pvc_new_position, lsi_pvc_last_position, lsi_pvc_new_position
     cdef int val_i_position = val_sol
     cdef int gs_i_position = gs_sol
     cdef unicode char_value
     val_pvc_last_position = 0
     val_i_storage = val_i #if val_i is a list of dictionary it is stored here so val_i can be retasked
     gs_i_storage = gs_i
+    ls_i_storage = ls_i
     val_pvc_type_storage = val_pvc #if val_pvc_type is a list of dictionary it is stored here so val_pvc_type can be retasked
     val_i = 'start'
     gs_i = 'start'
     gsi_pvc_type_storage = gs_pvc
+    lsi_pvc_type_storage = ls_pvc
     
     x, y = img_size(image) #gets x and y vales of image
     
@@ -306,7 +308,7 @@ def its(image, val_ord = "0", val_ord_xy = False, val_i = " ", val_type = "s", v
                     
             #---------------OPERATION WITHIN XPOS FOR LOOP       
  #-------------------------Group Space Operations-----------------------------------------------------------------------------------------           
-            if gs_pvc_type != 'i': #figures out position value change for pionter on value indicator list
+            if gs_pvc_type != 'i': #figures out position value change for pionter on group space indicator list
                 if gs_pvc_type == 'l':
                     gs_pvc, gsi_pvc_new_position = pvc_list_return(gsi_pvc_type_storage, gsi_pvc_last_position)
                     gsi_pvc_last_position = gsi_pvc_new_position
@@ -314,37 +316,105 @@ def its(image, val_ord = "0", val_ord_xy = False, val_i = " ", val_type = "s", v
                 else: 
                     gs_pvc = what_pcv_dict_value(gsi_pvc_type_storage, gs_i)
                 #attaches group space indicator       
+            
             if gs_type == 's': #figures out what the value indicator is
                 if gs_i_storage[0] != space:
                     output_list.append(space)
                 output_list.append(gs_i_storage) # value indicator
                 
-                
-                    
-                    
             elif gs_type == 'l':
                 gs_i_last_position = gs_i_position
-                gs_i, gs_i_position = what_is_i_list(gs_i_storage, gs_i_last_position, gs_iol, gs_pvc, gs_sol, gs_eol) #if val_type is a list or dictionary
+                gs_i, gs_i_position = what_is_i_list(gs_i_storage, gs_i_last_position, gs_iol, gs_pvc, gs_sol, gs_eol) #if gs_type is a list or dictionary
                 if gs_i[0] != space:
                     output_list.append(space)
                 output_list.append(gs_i)
                 
-                
-                    
             else:
                 gs_i = what_i_dict_value(gs_i_storage, val_i)
                 if gs_i[0] != space:
                     output_list.append(space)
                 output_list.append(gs_i)
                 
-            output_string = ''.join(output_list) 
+           
             
-        if ls_i[0] != space:
-                    output_list.append(space)
-        output_list.append(ls_i) #attaches line space indicator
+        #if ls_i[0] != space:
+                    #output_list.append(space)
+        
+        #----------------------------------Line Space Operations--------------------------------------
+        if ls_pvc_type != 'i': #figures out position value change for pionter on line space indicator list
+            if ls_pvc_type == 'l':
+                ls_pvc, lsi_pvc_new_position = pvc_list_return(lsi_pvc_type_storage, lsi_pvc_last_position)
+                lsi_pvc_last_position = lsi_pvc_new_position
+                    
+            else: 
+                ls_pvc = what_pcv_dict_value(lsi_pvc_type_storage, ls_i)
+                        #attaches attaches line space indicator       
+        
+        if ls_type == 's': #figures out what the value indicator is
+            if ls_i_storage[0] != space:
+                output_list.append(space)
+            output_list.append(ls_i_storage) # value indicator
+                
+        elif ls_type == 'l':
+            ls_i_last_position = ls_i_position
+            ls_i, ls_i_position = what_is_i_list(ls_i_storage, ls_i_last_position, ls_iol, ls_pvc, ls_sol, ls_eol) #if ls_type is a list or dictionary
+            if ls_i[0] != space:
+                output_list.append(space)
+            output_list.append(ls_i)
+                
+        else:
+            ls_i = what_i_dict_value(ls_i_storage, gs_i)
+            if ls_i[0] != space:
+                output_list.append(space)
+            output_list.append(ls_i)
+        
+    #-----------------------------------------------------------------------------------------------------------------------------    
+        
+        output_string = ''.join(output_list)
         
     
     output_string = ''.join(output_list) #converts list to string
     
        
     return output_string
+
+
+           
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
